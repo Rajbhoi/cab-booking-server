@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: cab-booking-backend
+    env: node
+    region: oregon
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGO_URI
+        value: mongodb+srv://myUser:myPassword@raj.rujzweh.mongodb.net/?retryWrites=true&w=majority&appName=raj
