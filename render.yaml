@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: cab-booking-backend
+    name: cab-booking-server
     env: node
     region: oregon
     buildCommand: npm install
