@@ -11,7 +11,8 @@ const app = express()
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:8000',
-  'https://cab-booking-web.netlify.app'
+  'https://cab-booking-web.netlify.app',
+  'https://cab-booking-admin.netlify.app'
 ]
 
 const corsOptions = {
