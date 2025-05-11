@@ -7,12 +7,25 @@ require('dotenv').config()
 
 const app = express()
 
-// ✅ CORS CONFIGURATION
+// ✅ UPDATED CORS CONFIGURATION
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:8000',
+  'https://cab-booking-web.netlify.app'
+]
+
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization']
 }
+
 app.use(cors(corsOptions))
 app.use(express.json())
 
