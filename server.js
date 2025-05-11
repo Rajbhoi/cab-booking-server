@@ -58,6 +58,8 @@ const bookingSchema = new mongoose.Schema({
 const Booking = mongoose.model('Booking', bookingSchema)
 
 // ✅ ROUTES
+
+// ✅ Create route for New bookings
 app.post('/api/bookings', async (req, res) => {
   try {
     const data = req.body
@@ -147,6 +149,43 @@ app.get('/api/bookings', async (req, res) => {
     res.status(500).json({ error: err.message })
   }
 })
+
+// ✅ DELETE route to delete a booking by ID
+app.delete('/api/bookings/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const deleted = await Booking.findByIdAndDelete(id)
+
+    if (!deleted) {
+      return res.status(404).json({ error: 'Booking not found' })
+    }
+
+    res.json({ message: 'Booking deleted successfully' })
+  } catch (err) {
+    console.error('DELETE /api/bookings/:id error:', err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
+// ✅ PUT route to update booking
+app.put('/api/bookings/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const updatedBooking = await Booking.findByIdAndUpdate(id, req.body, {
+      new: true,
+    })
+
+    if (!updatedBooking) {
+      return res.status(404).json({ error: 'Booking not found' })
+    }
+
+    res.json(updatedBooking)
+  } catch (err) {
+    console.error('PUT /api/bookings/:id error:', err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
 
 // ✅ START SERVER
 const PORT = process.env.PORT || 8000
